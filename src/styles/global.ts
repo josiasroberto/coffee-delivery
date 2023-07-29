@@ -17,7 +17,7 @@ export const GlobalStyle = createGlobalStyle`
     -wekbit-font-smoothing: antialiased;
   }
 
-  body, input, button{
+  body, input, button, p, span{
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 0.875rem;
