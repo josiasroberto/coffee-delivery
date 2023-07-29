@@ -21,6 +21,7 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 0.875rem;
+    line-height: 130%;
   }
 
 `
