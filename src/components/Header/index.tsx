@@ -10,18 +10,18 @@ export function Header() {
     <HeaderContainer>
       <nav>
         <NavLink to="/" title="Home">
-          <img src={logoCoffeeDelivery} alt="" />
+          <img className="logo" src={logoCoffeeDelivery} alt="" />
         </NavLink>
 
         <div>
           <LocationSpan>
-            <MapPin size={24} weight="fill" />
+            <MapPin weight="fill" />
             <p>Itinga, MG</p>
           </LocationSpan>
 
           <NavLink to="/checkout" title="Checkout">
             <Cart>
-              <ShoppingCart size={22} weight="fill" />
+              <ShoppingCart weight="fill" />
             </Cart>
           </NavLink>
         </div>

@@ -3,17 +3,25 @@ import { styled } from 'styled-components'
 import bgHeaderHome from '../../assets/bg-header-home.png'
 
 export const HeaderHomeContainer = styled.header`
-  width: 100%;
   background: url(${bgHeaderHome}) no-repeat;
   background-size: cover;
 `
 
 export const HeaderContent = styled.div`
-  margin-top: 6.75rem;
   display: flex;
+  margin: 6.75rem auto 0;
   padding: 5.75rem 10rem;
-  justify-content: space-between;
+
+  align-items: center;
+  justify-content: center;
   gap: 3.5rem;
+
+  div {
+    max-width: 36.75rem;
+  }
+  img {
+    max-width: 29.75rem;
+  }
 `
 
 export const TitleContent = styled.div`
@@ -37,7 +45,6 @@ export const TitleContent = styled.div`
 export const ItemsContent = styled.div`
   margin-top: 4.125rem;
   display: flex;
-  width: 35.5rem;
   gap: 2.5rem;
 
   div {
@@ -67,12 +74,38 @@ export const SpanIcon = styled.span<SpanIconProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  min-width: 2rem;
+  min-height: 2rem;
+  font-size: 1rem;
 
   color: ${(props) => props.theme.white};
   background: ${(props) => props.theme[BG_COLORS[props.$bgColor]]};
   border-radius: 1000px;
 `
 
-export const CoffeeListContainer = styled.main``
+export const MainHomeContainer = styled.div`
+  padding: 2rem 10rem;
+
+  .title {
+    max-width: 70rem;
+    margin: 0 auto;
+
+    font-family: 'Baloo 2';
+    font-size: 2rem;
+    font-weight: 800;
+
+    margin-bottom: 3.5rem;
+    color: ${(props) => props.theme['base-subtitle']};
+  }
+`
+
+export const CoffeeListContainer = styled.main`
+  max-width: 70rem;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+
+  gap: 2rem;
+  flex-wrap: wrap;
+`

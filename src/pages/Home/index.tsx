@@ -1,63 +1,84 @@
 import {
+  CoffeeListContainer,
   HeaderContent,
   HeaderHomeContainer,
   ItemsContent,
+  MainHomeContainer,
   SpanIcon,
   TitleContent,
 } from './styles'
 import { ShoppingCart, Timer, Package, Coffee } from 'phosphor-react'
 
 import coffeeDeliveryImage from '../../assets/coffee-delivery-image.svg'
+import { CoffeeCard } from './components/CoffeeCard'
 
 export function Home() {
   return (
-    <HeaderHomeContainer>
-      <HeaderContent>
-        <div>
-          <TitleContent>
-            <p>Encontre o café perfeito para qualquer hora do dia</p>
-            <p>
-              Com o Coffee Delivery você recebe seu café onde estiver, a
-              qualquer hora
-            </p>
-          </TitleContent>
-
-          <ItemsContent>
-            <div>
+    <>
+      <HeaderHomeContainer>
+        <HeaderContent className="headerContainer">
+          <div>
+            <TitleContent>
+              <p>Encontre o café perfeito para qualquer hora do dia</p>
               <p>
-                <SpanIcon $bgColor="yellowDark">
-                  <ShoppingCart size={16} weight="fill" />
-                </SpanIcon>
-                Compra simples e segura
+                Com o Coffee Delivery você recebe seu café onde estiver, a
+                qualquer hora
               </p>
+            </TitleContent>
 
-              <p>
-                <SpanIcon $bgColor="yellow">
-                  <Package size={16} weight="fill" />
-                </SpanIcon>
-                Entrega rápida e rastreada
-              </p>
-            </div>
+            <ItemsContent>
+              <div>
+                <p>
+                  <SpanIcon $bgColor="yellowDark">
+                    <ShoppingCart weight="fill" />
+                  </SpanIcon>
+                  Compra simples e segura
+                </p>
 
-            <div>
-              <p>
-                <SpanIcon $bgColor="baseText">
-                  <Timer size={16} weight="fill" />
-                </SpanIcon>
-                Embalagem mantém o café intacto
-              </p>
+                <p>
+                  <SpanIcon $bgColor="yellow">
+                    <Package weight="fill" />
+                  </SpanIcon>
+                  Entrega rápida e rastreada
+                </p>
+              </div>
 
-              <p>
-                <SpanIcon $bgColor="purple">
-                  <Coffee size={16} weight="fill" />
-                </SpanIcon>
-                O café chaga fresquinho até você
-              </p>
-            </div>
-          </ItemsContent>
-        </div>
-        <img src={coffeeDeliveryImage} alt="" />
-      </HeaderContent>
-    </HeaderHomeContainer>
+              <div>
+                <p>
+                  <SpanIcon $bgColor="baseText">
+                    <Timer weight="fill" />
+                  </SpanIcon>
+                  Embalagem mantém o café intacto
+                </p>
+
+                <p>
+                  <SpanIcon $bgColor="purple">
+                    <Coffee weight="fill" />
+                  </SpanIcon>
+                  O café chega fresquinho até você
+                </p>
+              </div>
+            </ItemsContent>
+          </div>
+          <img src={coffeeDeliveryImage} alt="" />
+        </HeaderContent>
+      </HeaderHomeContainer>
+
+      <MainHomeContainer>
+        <p className="title">Nossos cafés</p>
+        <CoffeeListContainer>
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+        </CoffeeListContainer>
+      </MainHomeContainer>
+    </>
   )
 }
