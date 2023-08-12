@@ -54,8 +54,9 @@ export const GlobalStyle = createGlobalStyle`
   }
 
 @media (max-width: 1220px) {
-    .headerContainer {
+    .headerContainer, .checkoutContainer {
       flex-direction: column;
+      align-items: center;
     }
 }
 

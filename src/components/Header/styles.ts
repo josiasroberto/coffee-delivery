@@ -7,6 +7,8 @@ export const HeaderContainer = styled.header`
   background: ${(props) => props.theme.background};
 
   width: 100vw;
+  max-height: 6.5rem;
+  z-index: 1;
 
   nav {
     margin: 0 auto;
