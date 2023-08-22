@@ -1,31 +1,74 @@
 import { Minus, Plus, ShoppingCartSimple } from 'phosphor-react'
-import expressoCoffeeImage from '../../../../assets/coffees/expresso.png'
 import { Card, Cart, Counter, FooterCard, TagContainer } from './styles'
+import { formatMoney } from '../../../../utils/formatMoney'
+import { useState } from 'react'
 
-export function CoffeeCard() {
+export interface Coffee {
+  id: number
+  tags: string[]
+  name: string
+  description: string
+  photo: string
+  price: number
+}
+
+interface CoffeesProps {
+  coffee: Coffee
+}
+
+export function CoffeeCard({ coffee }: CoffeesProps) {
+  const formattedPrice = formatMoney(coffee.price)
+
+  const [coffeeCount, setCoffeeCount] = useState(1)
+
+  function IncrementCoffeeCount() {
+    setCoffeeCount((prevState) => {
+      return prevState + 1
+    })
+  }
+
+  function DecrementCoffeeCount() {
+    if (coffeeCount > 1) {
+      setCoffeeCount((prevState) => {
+        return prevState - 1
+      })
+    }
+  }
+
   return (
     <Card>
-      <img src={expressoCoffeeImage} alt="" />
+      <img src={`/coffees/${coffee.photo}`} alt="" />
       <TagContainer>
-        <p className="tag">Tradicional</p>
-        <p className="tag">Com Leite</p>
+        {coffee.tags.map((tag) => (
+          <p className="tag" key={`${coffee.id}${tag}`}>
+            {tag}
+          </p>
+        ))}
       </TagContainer>
 
-      <h1>Expresso Tradicional</h1>
-      <h2>O tradicional café feito com água quente e grãos moídos</h2>
+      <h1>{coffee.name}</h1>
+      <h2>{coffee.description}</h2>
 
       <FooterCard>
         <p className="price">
           <span>R$ </span>
-          9,90
+          {formattedPrice}
         </p>
 
         <Counter>
-          <Minus className="minusIcon" weight="bold" />
+          <Minus
+            onClick={DecrementCoffeeCount}
+            className="minusIcon"
+            weight="bold"
+          />
 
-          <input type="number" name="" id="" value={1} />
+          <input type="number" name="" id="" value={coffeeCount} readOnly />
 
-          <Plus className="plusIcon" weight="bold" />
+          <Plus
+            onClick={IncrementCoffeeCount}
+            className="plusIcon"
+            weight="bold"
+          />
         </Counter>
 
         <Cart>

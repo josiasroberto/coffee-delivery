@@ -1,7 +1,7 @@
 import { styled } from 'styled-components'
 
 export const MainHomeContainer = styled.div`
-  padding: 2rem 10rem;
+  padding: 2rem 7.5rem;
 
   .titleHomeContainer {
     max-width: 70rem;

@@ -5,6 +5,7 @@ export const GlobalStyle = createGlobalStyle`
     margin:0;
     padding:0;
     box-sizing: border-box;
+    user-select: none;
   }
 
   :focus-visible {
@@ -40,8 +41,7 @@ export const GlobalStyle = createGlobalStyle`
 
   ::-webkit-scrollbar{
     width: 6px;
-    height: 6px;    
-    
+    height: 6px;
   }
   
   ::-webkit-scrollbar-thumb{
