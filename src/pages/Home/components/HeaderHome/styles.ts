@@ -1,9 +1,18 @@
 import { styled } from 'styled-components'
 
 import bgHeaderHome from '../../../../assets/bg-header-home.png'
+import { rgba } from 'polished'
 
 export const HeaderHomeContainer = styled.header`
-  background: url(${bgHeaderHome}) no-repeat;
+  /* background: url(${bgHeaderHome}) no-repeat; */
+  background: ${({ theme }) => `url(${bgHeaderHome}) no-repeat center,
+      linear-gradient(
+        0deg,
+        ${theme.white} 0%,
+        ${rgba(theme.background, 0.2)} 50%,
+        ${theme.background} 100%
+      )`};
+
   background-size: cover;
 `
 

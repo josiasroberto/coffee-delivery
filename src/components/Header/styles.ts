@@ -29,13 +29,15 @@ export const HeaderContainer = styled.header`
     align-items: center;
   }
 `
-export const LocationSpan = styled.span`
+export const LocationButton = styled.button`
   display: flex;
   padding: 0.5rem;
   align-items: center;
   gap: 0.25rem;
   font-size: 1.375rem;
+  cursor: inherit;
 
+  border: none;
   border-radius: 6px;
   background: ${(props) => props.theme['purple-light']};
   color: ${(props) => props.theme.purple};
@@ -50,11 +52,12 @@ export const LocationSpan = styled.span`
     color: ${(props) => props.theme['purple-dark']};
   }
 `
-export const Cart = styled.span`
+export const CartButton = styled.button`
   display: flex;
   padding: 0.5rem;
   font-size: 1.375rem;
 
+  border: none;
   border-radius: 6px;
   background: ${(props) => props.theme['yellow-light']};
   color: ${(props) => props.theme['yellow-dark']};
@@ -66,8 +69,7 @@ export const Cart = styled.span`
     opacity: 0.8;
   }
 
-  &::after {
-    content: '3';
+  span {
     width: 1.25rem;
     height: 1.25rem;
 

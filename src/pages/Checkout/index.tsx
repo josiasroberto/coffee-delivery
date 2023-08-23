@@ -28,7 +28,7 @@ export function Checkout() {
         <h1>Cafés selecionados</h1>
 
         <CartContainer>
-          {isCartEmpty ? (
+          {!isCartEmpty ? (
             <EmptyCart>
               <p>Carrinho vazio</p>
               <img src={emptyCartImg} alt="" />
@@ -36,6 +36,7 @@ export function Checkout() {
             </EmptyCart>
           ) : (
             <>
+              <CoffeeCart />
               <CoffeeCart />
               <PriceContainer>
                 <div>

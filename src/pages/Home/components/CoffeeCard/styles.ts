@@ -106,12 +106,13 @@ export const Counter = styled.div`
   }
 `
 
-export const Cart = styled.span`
+export const Cart = styled.button`
   display: flex;
   padding: 0.5rem;
   font-size: 1.375rem;
 
   border-radius: 6px;
+  border: none;
   color: ${(props) => props.theme['base-card']};
   background: ${(props) => props.theme['purple-dark']};
   cursor: pointer;

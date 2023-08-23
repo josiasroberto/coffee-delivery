@@ -1,11 +1,13 @@
 import { NavLink } from 'react-router-dom'
 
-import { Cart, HeaderContainer, LocationSpan } from './styles'
+import { CartButton, HeaderContainer, LocationButton } from './styles'
 
 import logoCoffeeDelivery from '../../assets/logo-coffee-delivery.svg'
 import { ShoppingCart, MapPin } from 'phosphor-react'
+import { useCart } from '../../hooks/useCart'
 
 export function Header() {
+  const { cartQuantity } = useCart()
   return (
     <HeaderContainer>
       <nav>
@@ -14,15 +16,16 @@ export function Header() {
         </NavLink>
 
         <div>
-          <LocationSpan>
+          <LocationButton>
             <MapPin weight="fill" />
             <p>Itinga, MG</p>
-          </LocationSpan>
+          </LocationButton>
 
           <NavLink to="/checkout" title="Checkout">
-            <Cart>
+            <CartButton>
+              {cartQuantity >= 1 && <span>{cartQuantity}</span>}
               <ShoppingCart weight="fill" />
-            </Cart>
+            </CartButton>
           </NavLink>
         </div>
       </nav>

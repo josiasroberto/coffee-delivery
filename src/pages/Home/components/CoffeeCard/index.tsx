@@ -2,6 +2,7 @@ import { Minus, Plus, ShoppingCartSimple } from 'phosphor-react'
 import { Card, Cart, Counter, FooterCard, TagContainer } from './styles'
 import { formatMoney } from '../../../../utils/formatMoney'
 import { useState } from 'react'
+import { useCart } from '../../../../hooks/useCart'
 
 export interface Coffee {
   id: number
@@ -17,19 +18,27 @@ interface CoffeesProps {
 }
 
 export function CoffeeCard({ coffee }: CoffeesProps) {
+  const [quantity, setQuantity] = useState(1)
+  const { addCoffeeToCart } = useCart()
+
+  function handleAddToCart() {
+    const coffeeToAdd = {
+      ...coffee,
+      quantity,
+    }
+    addCoffeeToCart(coffeeToAdd)
+  }
   const formattedPrice = formatMoney(coffee.price)
 
-  const [coffeeCount, setCoffeeCount] = useState(1)
-
-  function IncrementCoffeeCount() {
-    setCoffeeCount((prevState) => {
+  function IncrementQuantity() {
+    setQuantity((prevState) => {
       return prevState + 1
     })
   }
 
-  function DecrementCoffeeCount() {
-    if (coffeeCount > 1) {
-      setCoffeeCount((prevState) => {
+  function DecrementQuantity() {
+    if (quantity > 1) {
+      setQuantity((prevState) => {
         return prevState - 1
       })
     }
@@ -57,21 +66,21 @@ export function CoffeeCard({ coffee }: CoffeesProps) {
 
         <Counter>
           <Minus
-            onClick={DecrementCoffeeCount}
+            onClick={DecrementQuantity}
             className="minusIcon"
             weight="bold"
           />
 
-          <input type="number" name="" id="" value={coffeeCount} readOnly />
+          <input type="number" name="" id="" value={quantity} readOnly />
 
           <Plus
-            onClick={IncrementCoffeeCount}
+            onClick={IncrementQuantity}
             className="plusIcon"
             weight="bold"
           />
         </Counter>
 
-        <Cart>
+        <Cart onClick={handleAddToCart}>
           <ShoppingCartSimple weight="fill" />
         </Cart>
       </FooterCard>
