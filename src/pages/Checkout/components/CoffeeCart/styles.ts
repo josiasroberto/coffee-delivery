@@ -42,7 +42,7 @@ export const CoffeeCartDetails = styled.div`
     align-items: center;
     gap: 0.5rem;
 
-    span {
+    button {
       display: flex;
       height: 2.375rem;
       padding: 0 0.5rem;
@@ -52,7 +52,7 @@ export const CoffeeCartDetails = styled.div`
       cursor: pointer;
 
       transition: all 0.2s;
-
+      border: none;
       border-radius: 6px;
       background: ${(props) => props.theme['base-button']};
 

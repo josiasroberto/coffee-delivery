@@ -7,32 +7,64 @@ import {
   CoffeeCartInfo,
 } from './styles'
 
-import expressoCoffeeImage from '../../../../assets/coffees/expresso.png'
+import { CartItem } from '../../../../contexts/CartContext'
+import { formatMoney } from '../../../../utils/formatMoney'
+import { useCart } from '../../../../hooks/useCart'
 
-export function CoffeeCart() {
+interface CoffeeCartCardProps {
+  coffee: CartItem
+}
+
+export function CoffeeCart({ coffee }: CoffeeCartCardProps) {
+  const { changeCartItemQuantity, removeCartItem } = useCart()
+
+  function handleIncrease() {
+    changeCartItemQuantity(coffee.id, 'increase')
+  }
+
+  function handleDecrease() {
+    changeCartItemQuantity(coffee.id, 'decrease')
+  }
+
+  function handleRemove() {
+    removeCartItem(coffee.id)
+  }
+
+  const coffeeTotal = coffee.price * coffee.quantity
+
+  const formattedPrice = formatMoney(coffeeTotal)
+
   return (
     <>
       <CoffeeCartContainer>
         <CoffeeCartInfo>
-          <img src={expressoCoffeeImage} alt="" />
+          <img src={`/coffees/${coffee.photo}`} alt="" />
           <CoffeeCartDetails>
-            <p>Expresso Tradicional</p>
+            <p>{coffee.name}</p>
             <div className="actionsCoffeeCart">
               <Counter>
-                <Minus className="minusIcon" weight="bold" />
+                <Minus
+                  onClick={handleDecrease}
+                  className="minusIcon"
+                  weight="bold"
+                />
 
-                <input type="number" name="" id="" value={1} />
+                <input type="number" name="" id="" value={coffee.quantity} />
 
-                <Plus className="plusIcon" weight="bold" />
+                <Plus
+                  onClick={handleIncrease}
+                  className="plusIcon"
+                  weight="bold"
+                />
               </Counter>
-              <span>
+              <button onClick={handleRemove}>
                 <Trash />
                 <p>Remover</p>
-              </span>
+              </button>
             </div>
           </CoffeeCartDetails>
         </CoffeeCartInfo>
-        <p className="coffeeCartPrice">R$ 9,90</p>
+        <p className="coffeeCartPrice">R$ {formattedPrice}</p>
       </CoffeeCartContainer>
       <Divider />
     </>

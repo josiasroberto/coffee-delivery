@@ -79,12 +79,8 @@ export const PriceContainer = styled.div`
 `
 
 export const CartButton = styled.button`
-  display: flex;
   padding: 0.75rem 0.5rem;
-  align-items: center;
-  justify-content: center;
-  align-self: stretch;
-
+  width: 100%;
   border: none;
   border-radius: 6px;
   background: ${(props) => props.theme.yellow};
@@ -111,5 +107,12 @@ export const EmptyCart = styled.div`
   }
   img {
     width: 100%;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
   }
 `
