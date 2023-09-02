@@ -10,8 +10,28 @@ import {
 } from './styles'
 
 import successPageImg from '../../assets/success-page-illustration.png'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { OrderData } from '../Checkout'
+import { paymentMethods } from '../Checkout/components/Payment'
+import { useEffect } from 'react'
+
+interface LocationType {
+  state: OrderData
+}
 
 export function Success() {
+  const { state } = useLocation() as unknown as LocationType
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!state) {
+      navigate('/')
+    }
+  }, [state, navigate])
+
+  if (!state) return <></>
+
   return (
     <SuccessContainer>
       <h1>Uhu! Pedido confirmado</h1>
@@ -27,9 +47,13 @@ export function Success() {
             <TextInfo>
               <p>
                 Entrega em{' '}
-                <HighlightInfo>Rua João Daniel Martinelli, 102 </HighlightInfo>
+                <HighlightInfo>
+                  {state.street}, {state.number}
+                </HighlightInfo>
               </p>
-              <p>Farrapos - Porto Alegre, RS</p>
+              <p>
+                {state.district} - {state.city}, {state.uf}
+              </p>
             </TextInfo>
           </RowInfo>
 
@@ -48,8 +72,10 @@ export function Success() {
               <CurrencyDollar weight="fill" />
             </SpanIcon>
             <TextInfo>
-              <p>Previsão de entrega</p>
-              <HighlightInfo>20 min - 30 min</HighlightInfo>
+              <p>Pagamento na entrega</p>
+              <HighlightInfo>
+                {paymentMethods[state.paymentMethod].label}
+              </HighlightInfo>
             </TextInfo>
           </RowInfo>
         </OrderInfoContainer>

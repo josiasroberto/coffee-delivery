@@ -1,79 +1,73 @@
-import {
-  CartContainer,
-  CheckoutContainer,
-  CartButton,
-  EmptyCart,
-  LeftContainer,
-  PriceContainer,
-  RightContainer,
-} from './styles'
+import { CheckoutContainer, LeftContainer, RightContainer } from './styles'
 
 import { Address } from './components/Address'
 import { Payment } from './components/Payment'
-import { CoffeeCart } from './components/CoffeeCart'
-import emptyCartImg from '../../assets/empty-cart.svg'
-import { useCart } from '../../hooks/useCart'
-import { NavLink } from 'react-router-dom'
-import { formatMoney } from '../../utils/formatMoney'
 
-const shipping = 3.5
+import * as zod from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm, FormProvider } from 'react-hook-form'
+
+import { SelectedCoffees } from './components/SelectedCoffees'
+import { useNavigate } from 'react-router-dom'
+import { useCart } from '../../hooks/useCart'
+
+enum PaymentMethods {
+  credit = 'credit',
+  debit = 'debit',
+  money = 'money',
+}
+
+const confirmOrderFormValidationSchema = zod.object({
+  cep: zod.string().min(1, 'Informe o CEP'),
+  street: zod.string().min(1, 'Informe a Rua'),
+  number: zod.string().min(1, 'Informe o Número'),
+  complement: zod.string(),
+  district: zod.string().min(1, 'Informe o Bairro'),
+  city: zod.string().min(1, 'Informe a Cidade'),
+  uf: zod.string().min(1, 'Informe a UF'),
+  paymentMethod: zod.nativeEnum(PaymentMethods, {
+    errorMap: () => {
+      return { message: 'Informe o método de pagamento' }
+    },
+  }),
+})
+
+export type OrderData = zod.infer<typeof confirmOrderFormValidationSchema>
+
+type ConfirmOrderFormData = OrderData
 
 export function Checkout() {
-  const { cartItems, cartQuantity, cartsItemsTotal } = useCart()
+  const confirmOrderForm = useForm<ConfirmOrderFormData>({
+    resolver: zodResolver(confirmOrderFormValidationSchema),
+  })
+  const { handleSubmit } = confirmOrderForm
 
-  const cartTotal = shipping + cartsItemsTotal
+  const navigate = useNavigate()
+  const { cleanCart } = useCart()
 
-  const formattedItemsTotal = formatMoney(cartsItemsTotal)
-  const formattedCartTotal = formatMoney(cartTotal)
-  const formattedShipping = formatMoney(shipping)
+  function handleConfirmOrder(data: ConfirmOrderFormData) {
+    navigate('/success', { state: data })
+    cleanCart()
+  }
 
   return (
-    <CheckoutContainer className="checkoutContainer">
-      <LeftContainer>
-        <h1>Complete seu pedido</h1>
+    <FormProvider {...confirmOrderForm}>
+      <CheckoutContainer
+        className="checkoutContainer"
+        onSubmit={handleSubmit(handleConfirmOrder)}
+      >
+        <LeftContainer>
+          <h1>Complete seu pedido</h1>
 
-        <Address />
-        <Payment />
-      </LeftContainer>
+          <Address />
+          <Payment />
+        </LeftContainer>
 
-      <RightContainer>
-        <h1>Cafés selecionados</h1>
-
-        <CartContainer>
-          {cartQuantity ? (
-            <>
-              {cartItems.map((item) => (
-                <CoffeeCart key={item.id} coffee={item} />
-              ))}
-
-              <PriceContainer>
-                <div>
-                  <p>Total de itens</p>
-                  <span>R$ {formattedItemsTotal}</span>
-                </div>
-                <div>
-                  <p>Entrega</p>
-                  <span>R$ {formattedShipping}</span>
-                </div>
-                <div className="totalWrapper">
-                  <p>Total</p>
-                  <span>R$ {formattedCartTotal}</span>
-                </div>
-              </PriceContainer>
-
-              <CartButton>CONFIRMAR PEDIDO</CartButton>
-            </>
-          ) : (
-            <EmptyCart>
-              <p>Carrinho vazio</p>
-              <img src={emptyCartImg} alt="" />
-              <NavLink to="/" title="Home">
-                <CartButton>Selecionar Cafés</CartButton>
-              </NavLink>
-            </EmptyCart>
-          )}
-        </CartContainer>
-      </RightContainer>
-    </CheckoutContainer>
+        <RightContainer>
+          <h1>Cafés selecionados</h1>
+          <SelectedCoffees />
+        </RightContainer>
+      </CheckoutContainer>
+    </FormProvider>
   )
 }

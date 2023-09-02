@@ -1,42 +1,70 @@
-import { useState, ChangeEvent } from 'react'
 import { FormContainer } from './styles'
+import { useFormContext } from 'react-hook-form'
+import { Input } from '../../../../../../components/Input'
+
+interface ErrorsType {
+  errors: {
+    [key: string]: {
+      message: string
+    }
+  }
+}
 
 export function Form() {
-  const [newComplemento, setNewComplement] = useState('')
+  const { register, formState } = useFormContext()
 
-  function handleNewComplementoChange(event: ChangeEvent<HTMLInputElement>) {
-    event.target.setCustomValidity('')
-    setNewComplement(event.target.value)
-  }
+  const { errors } = formState as unknown as ErrorsType
 
   return (
     <FormContainer>
-      <input type="number" className="cep" placeholder="CEP" />
-      <input type="text" className="rua" placeholder="Rua" />
-
+      <Input
+        type="number"
+        placeholder="CEP"
+        className="cep"
+        {...register('cep')}
+        error={errors.cep?.message}
+      />
+      <Input
+        placeholder="Rua"
+        className="rua"
+        {...register('street')}
+        error={errors.street?.message}
+      />
       <div>
-        <input type="text" className="numero" placeholder="Número" />
-
-        <div
-          className={
-            newComplemento
-              ? 'inputComplementWrapper'
-              : 'inputComplementWrapperEmpty'
-          }
-        >
-          <input
-            type="text"
-            className="complemento"
-            placeholder="Complemento"
-            value={newComplemento}
-            onChange={handleNewComplementoChange}
-          />
-        </div>
+        <Input
+          type="number"
+          placeholder="Número"
+          className="numero"
+          {...register('number')}
+          error={errors.number?.message}
+        />
+        <Input
+          placeholder="Complemento"
+          className="complemento"
+          {...register('complement')}
+          error={errors.complement?.message}
+          rightText="Opcional"
+        />
       </div>
       <div>
-        <input type="text" className="bairro" placeholder="Bairro" />
-        <input type="text" className="cidade" placeholder="Cidade" />
-        <input type="text" className="uf" placeholder="UF" />
+        <Input
+          placeholder="Bairro"
+          className="bairro"
+          {...register('district')}
+          error={errors.district?.message}
+        />
+        <Input
+          placeholder="Cidade"
+          className="cidade"
+          {...register('city')}
+          error={errors.city?.message}
+        />
+        <Input
+          placeholder="UF"
+          className="uf"
+          {...register('uf')}
+          error={errors.uf?.message}
+        />
       </div>
     </FormContainer>
   )

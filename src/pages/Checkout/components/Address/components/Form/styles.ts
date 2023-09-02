@@ -13,27 +13,6 @@ export const FormContainer = styled.div`
     align-self: stretch;
   }
 
-  input {
-    display: flex;
-    padding: 0.75rem;
-    align-items: center;
-
-    border-radius: 0.25rem;
-    border: 1px solid ${(props) => props.theme['base-button']};
-    background: ${(props) => props.theme['base-input']};
-
-    &::placeholder {
-      color: ${(props) => props.theme['base-label']};
-    }
-
-    &:focus {
-      border: 1px solid ${(props) => props.theme['yellow-dark']};
-    }
-
-    &:focus::placeholder {
-      color: transparent;
-    }
-  }
   .cep,
   .numero,
   .bairro {

@@ -10,6 +10,10 @@ export const PaymentContainer = styled.div`
   border-radius: 6px;
   background: ${(props) => props.theme['base-card']};
 
+  > p {
+    color: ${(props) => props.theme['base-error']};
+  }
+
   .paymentDescription {
     display: flex;
     align-items: flex-start;

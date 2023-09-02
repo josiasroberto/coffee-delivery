@@ -1,7 +1,27 @@
 import { CurrencyDollar, CreditCard, Bank, Money } from 'phosphor-react'
 import { PaymentContainer, PaymentMethod, PaymentMethodContent } from './styles'
+import { useFormContext } from 'react-hook-form'
+
+export const paymentMethods = {
+  credit: {
+    label: 'Cartão de Crédito',
+  },
+  debit: {
+    label: 'Cartão de Débito',
+  },
+  money: {
+    label: 'Dinheiro',
+  },
+}
 
 export function Payment() {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext()
+
+  const paymentMethodError = errors?.paymentMethod?.message as unknown as string
+
   return (
     <PaymentContainer>
       <div className="paymentDescription">
@@ -18,7 +38,12 @@ export function Payment() {
 
       <div className="paymentMethodsContainer">
         <PaymentMethod>
-          <input type="radio" id="credit" name="radio" />
+          <input
+            type="radio"
+            id="credit"
+            value="credit"
+            {...register('paymentMethod')}
+          />
           <label htmlFor="credit">
             <PaymentMethodContent>
               <span>
@@ -30,8 +55,13 @@ export function Payment() {
         </PaymentMethod>
 
         <PaymentMethod>
-          <input type="radio" id="bank" name="radio" />
-          <label htmlFor="bank">
+          <input
+            type="radio"
+            id="debit"
+            value="debit"
+            {...register('paymentMethod')}
+          />
+          <label htmlFor="debit">
             <PaymentMethodContent>
               <span>
                 <Bank />
@@ -42,8 +72,13 @@ export function Payment() {
         </PaymentMethod>
 
         <PaymentMethod>
-          <input type="radio" id="cash" name="radio" />
-          <label htmlFor="cash">
+          <input
+            type="radio"
+            id="money"
+            value="money"
+            {...register('paymentMethod')}
+          />
+          <label htmlFor="money">
             <PaymentMethodContent>
               <span>
                 <Money />
@@ -53,6 +88,7 @@ export function Payment() {
           </label>
         </PaymentMethod>
       </div>
+      {paymentMethodError && <p>{paymentMethodError}</p>}
     </PaymentContainer>
   )
 }
