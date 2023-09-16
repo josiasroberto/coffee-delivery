@@ -23,7 +23,9 @@ export function CoffeeCart({ coffee }: CoffeeCartCardProps) {
   }
 
   function handleDecrease() {
-    changeCartItemQuantity(coffee.id, 'decrease')
+    if (coffee.quantity > 1) {
+      changeCartItemQuantity(coffee.id, 'decrease')
+    }
   }
 
   function handleRemove() {
@@ -49,7 +51,13 @@ export function CoffeeCart({ coffee }: CoffeeCartCardProps) {
                   weight="bold"
                 />
 
-                <input type="number" name="" id="" value={coffee.quantity} />
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  value={coffee.quantity}
+                  readOnly
+                />
 
                 <Plus
                   onClick={handleIncrease}
